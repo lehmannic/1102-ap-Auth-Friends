@@ -2,19 +2,24 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import '../styles/App.css';
 
+import PrivateRoute from './PrivateRoute';
 import Login from './Login';
+import FriendsList from './FriendsList';
 
 function App() {
   return (
     <Router>
       <div className='App'>
-        <nav className='container'>
-          <h1>APP</h1>
+        <header className='container '>
+          <h1>Friends List APP</h1>
           <Link to='/Login'>Login</Link>
           <Link to='/'>Home</Link>
-        </nav>
+        </header>
         <Switch>
+          <PrivateRoute path='/protected' component={FriendsList} />
           <Route path='/login' component={Login} />
+          <Route component={Login} />
+          {/* <Route path='/login' render={(props) => <Login {...props} />} /> */}
         </Switch>
       </div>
     </Router>
@@ -52,4 +57,3 @@ export default App;
 // }
 
 // export default App;
-

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-// import { axiosWithAuth } from '../utils/axiosWithAuth';
-// import PrvateRoute from './PritvateRoute';
+// import axios from 'axios';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const Login = (props) => {
   const [credentials, setCredentials] = useState({
@@ -21,14 +20,14 @@ const Login = (props) => {
   const attemptLogin = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    axios
-      .post('http://localhost:5000/api/login', credentials)
+    axiosWithAuth()
+      .post('/api/login', credentials)
       .then((res) => {
         setTimeout(() => {
           setIsLoading(false);
           setError('');
           localStorage.setItem('token', res.data.payload);
-          // props.history.push('/protected');
+          props.history.push('/protected');
         }, 300);
       })
       .catch((err) => {
